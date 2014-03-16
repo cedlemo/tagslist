@@ -1,0 +1,61 @@
+collections
+{
+  group {name: "modules/tagslist/main";
+	  parts{
+      part { name: "bg"; type: RECT; mouse_events: 0;
+        description { state: "default" 0.0;
+          rel1.relative: 0.0 0.0;
+          rel1.to: "label";
+          rel2.relative: 1.0 1.0;
+          rel2.to: "label";
+          color: 0 0 0 64;
+        }
+	      description { state: "selected" 0.0;
+	        inherit: "default" 0.0;
+	        rel1.relative: 0.0 0.0;
+          rel2.relative: 1.0 1.0;
+          rel2.offset: 0 2;
+          color: 0 0 0 128;
+	      }
+      }
+	    part { name: "label"; type: TEXT; mouse_events: 1;
+        effect: OUTLINE;
+        description { state: "default" 0.0;
+          rel1.offset: 2 2;
+          rel2.offset: -2 -2;
+          color: 255 255 255 170;
+          color2: 64 64 64 128;
+          color3: 0 0 0 128;
+          align: 0.5 0.5;
+          text {
+            font: "Sans:style=Mono";
+            size: 10;
+            align: 0.5 0.5;
+            min: 1 1;
+          }
+	      } 
+ 	      description { state: "selected" 0.0;
+	        inherit: "default" 0.0;
+	        color: 255 255 255 255;
+          color2: 51 153 255 128;
+          color3: 51 153 255 64;
+	      }
+      }
+    }
+    programs {
+	    program {
+        signal: "e,state,unselected"; source: "e"; 
+        action: STATE_SET "default" 0.0; 
+  	    target: "bg";
+        target: "label";
+	    }
+	    program {
+        signal: "e,state,selected"; source: "e";
+        action: STATE_SET "selected" 0.0; 
+  	    transition: BOUNCE 0.4 0.5 4;
+        target: "bg";
+        target: "label";
+      }
+    }
+  }
+}

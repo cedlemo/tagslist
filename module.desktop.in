@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Link
+Name=Tagslist
+Name[fr]=Tagslist
+Comment=Used to display virtual desktop indicators .
+Comment[fr]=Affiche les bureaux virtuels.
+Icon=e-module-tagslist
+X-Enlightenment-ModuleType=system
