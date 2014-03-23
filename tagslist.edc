@@ -1,7 +1,23 @@
 collections
 {
   group {name: "modules/tagslist/main";
+    images.image: "glow_small.png" COMP;
 	  parts{
+      part { name: "glow"; mouse_events: 0;
+        description { state: "default" 0.0;
+          rel1.to: "bg";
+          rel1.offset: -3 -3;
+          rel2.to: "bg";
+          rel2.offset: 2 2;
+          image.normal: "glow_small.png";
+          image.border: 7 7 7 7;
+          color: 255 255 255 0;
+        }
+        description { state: "selected" 0.0;
+          inherit: "default" 0.0;
+          color: 255 255 255 255;
+        }
+      }
       part { name: "bg"; type: RECT; mouse_events: 0;
         description { state: "default" 0.0;
           rel1.relative: 0.0 0.0;
@@ -14,16 +30,16 @@ collections
 	        inherit: "default" 0.0;
 	        rel1.relative: 0.0 0.0;
           rel2.relative: 1.0 1.0;
-          rel2.offset: 0 2;
-          color: 0 0 0 128;
+          rel2.offset: 0 0;
+          color: 0 0 0 255;
 	      }
       }
 	    part { name: "label"; type: TEXT; mouse_events: 1;
         effect: OUTLINE;
         description { state: "default" 0.0;
-          rel1.offset: 2 2;
-          rel2.offset: -2 -2;
-          color: 255 255 255 170;
+          rel1.offset: 3 3;
+          rel2.offset: -3 -3;
+          color: 0 0 0 255;
           color2: 64 64 64 128;
           color3: 0 0 0 128;
           align: 0.5 0.5;
@@ -31,7 +47,7 @@ collections
             font: "Sans:style=Mono";
             size: 10;
             align: 0.5 0.5;
-            min: 1 1;
+            min: 1 0;
           }
 	      } 
  	      description { state: "selected" 0.0;
@@ -48,13 +64,15 @@ collections
         action: STATE_SET "default" 0.0; 
   	    target: "bg";
         target: "label";
-	    }
+	      target: "glow";
+      }
 	    program {
         signal: "e,state,selected"; source: "e";
         action: STATE_SET "selected" 0.0; 
   	    transition: BOUNCE 0.4 0.5 4;
         target: "bg";
         target: "label";
+        target: "glow";
       }
     }
   }

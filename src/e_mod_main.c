@@ -82,7 +82,7 @@ _gc_init(E_Gadcon *gc, const char *name, const char *id, const char *style)
 
     /* Handlers for mouse events*/
    /*evas_object_event_callback_add(o, EVAS_CALLBACK_MOUSE_DOWN,
-				                            _button_cb_mouse_down, inst);
+                                    _button_cb_mouse_down, inst);
    evas_object_event_callback_add(o, EVAS_CALLBACK_MOUSE_IN,
                                     _tclock_cb_mouse_in, inst);
    evas_object_event_callback_add(o, EVAS_CALLBACK_MOUSE_OUT,
@@ -162,7 +162,7 @@ _gc_icon(const E_Gadcon_Client_Class *client_class, Evas *evas)
    if (!tagslist_conf->module) return NULL;
 
    snprintf(buf, sizeof(buf), "%s/e-module-tagslist.edj", 
-	    e_module_dir_get(tagslist_conf->module));
+      e_module_dir_get(tagslist_conf->module));
 
    o = edje_object_add(evas);
    edje_object_file_set(o, buf, "icon");
@@ -229,18 +229,18 @@ static void _fill_desks_widget(Instance * instance, E_Gadcon *gc)
         desk_object->y = j;
         desk_object->label = edje_object_add(gc->evas);
         if(!e_theme_edje_object_set(desk_object->label,  
-	              "base/theme/modules/tagslist", "modules/tagslist/main"))
+                "base/theme/modules/tagslist", "modules/tagslist/main"))
         edje_object_file_set(desk_object->label, buf, "modules/tagslist/main");
         edje_object_part_text_set(desk_object->label, "label", desk->name);
         
         if (desk_object->desk == e_desk_current_get(gc->zone))
-		      edje_object_signal_emit(desk_object->label, "e,state,selected", "e");
-	      else
-		      edje_object_signal_emit(desk_object->label, "e,state,unselected", "e");
+          edje_object_signal_emit(desk_object->label, "e,state,selected", "e");
+        else
+          edje_object_signal_emit(desk_object->label, "e,state,unselected", "e");
         
         evas_object_event_callback_add(desk_object->label, EVAS_CALLBACK_MOUSE_WHEEL,
-                                  _pager_desk_cb_mouse_wheel, gc->zone); 	
-	      evas_object_event_callback_add(desk_object->label, EVAS_CALLBACK_MOUSE_UP,
+                                  _pager_desk_cb_mouse_wheel, gc->zone);  
+        evas_object_event_callback_add(desk_object->label, EVAS_CALLBACK_MOUSE_UP,
                                   _pager_desk_cb_mouse_up, desk_object);
         int w,h;
         edje_object_size_min_calc(desk_object->label, &w, &h);
@@ -284,9 +284,9 @@ static void _update_selected_desk_widget(Instance * instance, E_Gadcon *gc)
       edje_object_part_text_set(label, "label", desk->name);
     
       if(desk == e_desk_current_get(desk->zone)) 
-		    edje_object_signal_emit(label, "e,state,selected", "e");
-	    else
-		    edje_object_signal_emit(label, "e,state,unselected", "e");
+        edje_object_signal_emit(label, "e,state,selected", "e");
+      else
+        edje_object_signal_emit(label, "e,state,unselected", "e");
   
       int w,h;
       edje_object_size_min_calc(label, &w, &h);
@@ -325,7 +325,7 @@ _update_names_desks_widget(Instance * instance, E_Gadcon *gc, E_Desk *desk)
         int w,h;
         edje_object_size_min_calc(label, &w, &h);
         e_table_pack_options_set(label, 1, 1, 1, 1, 0.5, 0.5, w, h, -1, -1);  
-	    }
+      }
     }
   }
   e_table_thaw(instance->widget);
@@ -402,30 +402,30 @@ _config_item_get(const char *id)
 
   if (!id)
   {
-	  /* Create id */
-	  char buf[128];
+    /* Create id */
+    char buf[128];
     int num = 0;
     if (tagslist_conf->items)
-	  {
-	    ci = eina_list_last(tagslist_conf->items)->data;
+    {
+      ci = eina_list_last(tagslist_conf->items)->data;
       const char *p;
-	    p = strrchr(ci->id, '.');
-	    if (p) num = atoi(p + 1) + 1;
-	  }
-	  snprintf(buf, sizeof(buf), "%s.%d", _gc_class.name, num);
-	  id = buf;
+      p = strrchr(ci->id, '.');
+      if (p) num = atoi(p + 1) + 1;
+    }
+    snprintf(buf, sizeof(buf), "%s.%d", _gc_class.name, num);
+    id = buf;
   }
   else
   {
-	  for (l = tagslist_conf->items; l; l = l->next) 
-	  {
-	    ci = l->data;
-	    if (!ci->id) continue;
-	    if (!strcmp(ci->id, id))
-	    {
-		    return ci;
-	    }
-	  }
+    for (l = tagslist_conf->items; l; l = l->next) 
+    {
+      ci = l->data;
+      if (!ci->id) continue;
+      if (!strcmp(ci->id, id))
+      {
+        return ci;
+      }
+    }
   }
 
   ci = E_NEW(Config_Item, 1);
@@ -466,13 +466,13 @@ e_modapi_init(E_Module *m)
   tagslist_conf = e_config_domain_load("module.tagslist", conf_edd);
   if (!tagslist_conf) 
   {
-	  Config_Item *ci;
-	
-	  tagslist_conf = E_NEW(Config, 1);
-	  ci = E_NEW(Config_Item, 1);
-	  ci->id = eina_stringshare_add("0");
-	
-	  tagslist_conf->items = eina_list_append(tagslist_conf->items, ci);
+    Config_Item *ci;
+  
+    tagslist_conf = E_NEW(Config, 1);
+    ci = E_NEW(Config_Item, 1);
+    ci->id = eina_stringshare_add("0");
+  
+    tagslist_conf->items = eina_list_append(tagslist_conf->items, ci);
   }
    
   E_LIST_HANDLER_APPEND(tagslist_conf->handlers, E_EVENT_DESK_NAME_CHANGE, _pager_cb_event_desk_name_change, NULL);
@@ -496,19 +496,19 @@ e_modapi_shutdown(E_Module *m)
   /*delete main menu of the widget if needed*/
   /*if (tagslist_conf->menu) 
   {
-	  e_menu_post_deactivate_callback_set(tagslist_conf->menu, NULL, NULL);
-	  e_object_del(E_OBJECT(tagslist_conf->menu));
-	  tagslist_conf->menu = NULL;
+    e_menu_post_deactivate_callback_set(tagslist_conf->menu, NULL, NULL);
+    e_object_del(E_OBJECT(tagslist_conf->menu));
+    tagslist_conf->menu = NULL;
   }*/
   /*Remove items*/
   while (tagslist_conf->items) 
   {
-	  Config_Item *ci;
-	
-	  ci = tagslist_conf->items->data;
-	  if (ci->id) eina_stringshare_del(ci->id);
-	  tagslist_conf->items = eina_list_remove_list(tagslist_conf->items, tagslist_conf->items);
-	  E_FREE(ci);
+    Config_Item *ci;
+  
+    ci = tagslist_conf->items->data;
+    if (ci->id) eina_stringshare_del(ci->id);
+    tagslist_conf->items = eina_list_remove_list(tagslist_conf->items, tagslist_conf->items);
+    E_FREE(ci);
   }
 
   E_FREE(tagslist_conf);
@@ -520,6 +520,6 @@ e_modapi_shutdown(E_Module *m)
 EAPI int
 e_modapi_save(E_Module *m) 
 {
-   e_config_domain_save("module.tagslist", conf_edd, tagslist_conf);
-   return 1;
+  e_config_domain_save("module.tagslist", conf_edd, tagslist_conf);
+  return 1;
 }
