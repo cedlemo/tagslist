@@ -7,7 +7,7 @@ I created Tagslist because I needed a widget like the tagslist in Awesome WM.
 Tagslist is not intended to replace the pager module. In fact, I consider that 
 Tagslist and the pager module are complementary. The pager module
 is more usefull with a big size (on the desktop) and is not very usable on a small
-desktop bar (enlightenement shelf).
+desktop bar (enlightenment shelf).
 ###Overview
 <img src="https://raw.github.com/cedlemo/tagslist/master/screenshot.jpg" width="576" height="324"     alt="Screenshot">
 
